@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import FormikControl from '../Controls/FormikControl';
+import Button from '../Controls/Button';
 
 function DemoForm() {
     const [result, setResult] = useState('');
@@ -70,12 +72,14 @@ function DemoForm() {
 
                                             <FormikControl control='date' lable='Pick a date:' name='birthDate' />
 
-                                            <button
+                                            <Button
+                                                variant="contained"
                                                 type='submit'
-                                            //disabled={!formik.isValid}
+                                                disabled={!formik.isValid}
+                                                leftIcon={<FontAwesomeIcon icon="fa-solid fa-circle-check" />}
                                             >
                                                 Submit
-                                            </button>
+                                            </Button>
 
                                             {/* {formik.values.selectOpt === "opt2" ? "show something" : ""} */}
                                         </Form>

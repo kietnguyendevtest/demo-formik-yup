@@ -56,6 +56,10 @@ textarea {
     background: transparent;
 }
 
+textarea {
+    resize: none;
+}
+
 input:-webkit-autofill,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active,
