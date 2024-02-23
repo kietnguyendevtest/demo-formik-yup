@@ -3,13 +3,30 @@ import { FastField, ErrorMessage } from 'formik';
 import TextError from '../FormikControl/TextError';
 
 function Textarea(props) {
-    const { lable, name, ...rest } = props;
+    const {
+        field, form,
+        label, placeholder, disabled, required,
+        ...rest
+    } = props;
+
+    const {
+        name, //value, onChange, onBlur
+    } = field;
+
+    const { errors, touched } = form;
 
     return (
         <div className='form-control'>
-            <label className='form-label' htmlFor={name}>{lable}</label>
-            <FastField className='form-input' as='textarea' id={name} name={name} {...rest} />
-            <ErrorMessage name={name} component={TextError} />
+            {label && <label className={'form-label' + (required ? " required" : "")} htmlFor={name}>{label}</label>}
+            <textarea
+                className='form-input'
+                id={name}
+                {...field} // <=> value, onChange, onBlur
+                placeholder={placeholder}
+                disabled={disabled}
+                {...rest}
+            />
+            {(errors[name] && touched[name]) && <TextError>{errors[name]}</TextError>}
         </div>
     );
 }

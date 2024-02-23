@@ -1,27 +1,5 @@
 @use "../abstracts";
 
-input[type="text"],
-input[type="email"],
-textarea {
-    display: block;
-    width: 100%;
-    min-height: 35px;
-    padding: 7px 10px;
-    font-size: 1.4rem;
-    color: #555;
-    outline: none;
-    background-color: var(--form-control-color);
-    border: 1px solid transparent;
-    border-left: 3px solid var(--primary-color);
-    border-radius: 0 4px 4px 0;
-    box-shadow: rgba(0, 0, 0, 0.08) 0px 0px 4px;
-
-    @include abstracts.screen(md) {
-        font-size: 1.6rem;
-        padding: 6px 10px;
-    }
-}
-
 .form-control {
     margin-bottom: 15px;
 
@@ -35,8 +13,37 @@ textarea {
         font-weight: 600;
         font-size: 1.4rem;
         color: var(--form-label-color);
+        position: relative;
+
+        &.required::after {
+            color: #fd4646;
+            content: "❪*❫";
+            font-size: 1.1rem;
+            margin-left: 2px;
+            position: relative;
+            top: -3px;
+        }
     }
-    .form-input {
+    .form-input,
+    .date-control {
+        display: block;
+        width: 100%;
+        min-height: 35px;
+        padding: 7px 10px;
+        font-size: 1.4rem;
+        color: #555;
+        outline: none;
+        background-color: var(--form-control-color);
+        border: 1px solid transparent;
+        border-left: 3px solid var(--primary-color);
+        border-radius: 0 4px 4px 0;
+        box-shadow: rgba(0, 0, 0, 0.08) 0px 0px 4px;
+
+        @include abstracts.screen(md) {
+            font-size: 1.6rem;
+            padding: 6px 10px;
+        }
+
         &:focus {
             border-bottom-color: var(--primary-color);
             border-bottom-right-radius: 0;
@@ -50,9 +57,11 @@ textarea {
         font-weight: 500;
     }
 
+    //Dropdown
     .select-control {
         .react-select__control {
             min-height: 35px !important;
+            color: var(--black) !important;
             background-color: var(--form-control-color) !important;
             border: none !important;
             border-left: 2px solid var(--primary-color) !important;
@@ -71,6 +80,7 @@ textarea {
         }
         .react-select__menu {
             margin: 0 !important;
+            color: var(--black) !important;
         }
         .react-select__option {
             font-size: 1.4rem;
@@ -95,6 +105,7 @@ textarea {
             align-items: center;
             line-height: 20px;
             font-size: 1.4rem;
+            cursor: pointer;
         }
 
         label::before,
@@ -187,6 +198,30 @@ textarea {
             border-left: 2px solid #fff;
             border-bottom: 2px solid #fff;
             rotate: -45deg;
+        }
+    }
+
+    //Datepicker
+    .date-control {
+        padding: 0;
+        width: 200px;
+        position: relative;
+
+        .react-datepicker-wrapper {
+            width: 100%;
+
+            input {
+                cursor: pointer;
+                width: 100%;
+                padding: 7px 10px;
+            }
+        }
+
+        .react-datepicker__calendar-icon {
+            cursor: pointer;
+            position: absolute;
+            top: 4px;
+            right: 4px;
         }
     }
 }

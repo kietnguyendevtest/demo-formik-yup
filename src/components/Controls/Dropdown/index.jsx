@@ -1,34 +1,33 @@
 import React from 'react';
-import { FastField, ErrorMessage } from 'formik';
 import Select from 'react-select'
 import TextError from '../FormikControl/TextError';
 
 function Dropdown(props) {
-    const { lable, name, options, ...rest } = props;
+    const {
+        field, form,
+        options, label, placeholder, disabled, required,
+        ...rest
+    } = props;
+
+    const { name, value } = field;
+    const { errors, touched, setFieldValue } = form;
 
     return (
         <div className='form-control'>
-            <label className='form-label' htmlFor={name}>{lable}</label>
-            <FastField id={name} name={name} {...rest} >
-                {
-                    ({ form, field }) => {
-                        const { setFieldValue } = form;
-                        const { value } = field;
-                        return (
-                            <Select
-                                className='select-control'
-                                classNamePrefix="react-select"
-                                {...field}
-                                {...rest}
-                                options={options}
-                                value={value.value}
-                                onChange={val => setFieldValue(name, val.value)}
-                            />
-                        )
-                    }
-                }
-            </FastField>
-            <ErrorMessage name={name} component={TextError} />
+            {label && <label className={'form-label' + (required ? " required" : "")} htmlFor={name}>{label}</label>}
+            <Select
+                className='select-control'
+                classNamePrefix="react-select"
+                id={name}
+                {...field}
+                options={options}
+                placeholder={placeholder}
+                isDisabled={disabled}
+                {...rest}
+                value={value && value.value}
+                onChange={val => setFieldValue(name, val.value)}
+            />
+            {(errors[name]) && <TextError>{errors[name]}</TextError>}
         </div>
     );
 }

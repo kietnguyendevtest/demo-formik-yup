@@ -1,19 +1,25 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Formik, Form } from 'formik';
+import { Formik, Form, FastField } from 'formik';
 import * as Yup from 'yup';
 import FormikControl from '../Controls/FormikControl';
 import Button from '../Controls/Button';
+import TextBox from '../Controls/TextBox';
+import Dropdown from '../Controls/Dropdown';
+import DatePicker from '../Controls/DatePicker';
+import RadioButtons from '../Controls/RadioButtons';
+import Checkbox from '../Controls/Checkbox';
+import Textarea from '../Controls/Textarea';
 
 function DemoForm() {
     const [result, setResult] = useState('');
-
 
     const dropDownOptions = [
         { value: '', label: '--Select--' },
         { value: 'opt1', label: 'Option 1' },
         { value: 'opt2', label: 'Option 2' },
         { value: 'opt3', label: 'Option 3' },
+        { value: 'opt4', label: 'Option 4' },
     ]
     const radioOptions = [
         { value: 'rdoOpt1', text: 'Radio Option 1' },
@@ -35,7 +41,7 @@ function DemoForm() {
         checkboxOpt: [],
         birthDate: null,
     };
-    const validationSchema = Yup.object({
+    const validationSchema = Yup.object().shape({
         email: Yup.string().email('Invalid email format').required('Email Required!'),
         desc: Yup.string().required('Description Required!'),
         selectOpt: Yup.string().required('Select a topic Required!'),
@@ -44,7 +50,6 @@ function DemoForm() {
         birthDate: Yup.date().nullable().required('Pick a date Required!'),
     });
     const onSubmit = (values, onSubmitProps) => {
-        console.log('submit values: ', values);
         onSubmitProps.resetForm();
         setResult(JSON.stringify(values))
     }
@@ -55,36 +60,81 @@ function DemoForm() {
                 <div className="col-6 offset-3 col-lg-12 offset-lg-0">
                     <div className='demo-form'>
                         <h1>Demo Formik with Yup</h1>
-                        <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
-                            {
-                                formik => {
-                                    return (
-                                        <Form autoComplete='off'>
-                                            <FormikControl control='input' type='email' lable='Email:' name='email' />
+                        <Formik
+                            initialValues={initialValues}
+                            validationSchema={validationSchema}
+                            onSubmit={onSubmit}
+                        >
+                            {formikProps => {
+                                const { values, errors, touched } = formikProps;
 
-                                            <FormikControl control='textarea' lable='Description:' name='desc' />
+                                console.log({ values, errors, touched });
 
-                                            <FormikControl control='select' lable='Select a topic:' name='selectOpt' options={dropDownOptions} />
+                                return (
+                                    <Form autoComplete='off'>
+                                        <FastField
+                                            name='email'
+                                            component={TextBox}
+                                            label="Email"
+                                            required
+                                            type="email"
+                                        />
 
-                                            <FormikControl control='radio' lable='Radio topic:' name='radioOpt' options={radioOptions} />
+                                        <FastField
+                                            name='desc'
+                                            component={Textarea}
+                                            label="Description"
+                                            required
+                                        />
 
-                                            <FormikControl control='checkbox' lable='Checkbox topics:' name='checkboxOpt' options={checkboxOptions} />
+                                        {/* <FormikControl control='select' lable='Select a topic:' name='selectOpt' options={dropDownOptions} /> */}
+                                        <FastField
+                                            name='selectOpt'
+                                            component={Dropdown}
+                                            label='Select a topic:'
+                                            required
+                                            options={dropDownOptions}
+                                        />
 
-                                            <FormikControl control='date' lable='Pick a date:' name='birthDate' />
+                                        {/* <FormikControl control='radio' lable='Radio topic:' name='radioOpt' options={radioOptions} /> */}
+                                        <FastField
+                                            name='radioOpt'
+                                            component={RadioButtons}
+                                            label='Radio topic:'
+                                            required
+                                            options={radioOptions}
+                                        />
 
-                                            <Button
-                                                variant="contained"
-                                                type='submit'
-                                                disabled={!formik.isValid}
-                                                leftIcon={<FontAwesomeIcon icon="fa-solid fa-circle-check" />}
-                                            >
-                                                Submit
-                                            </Button>
+                                        {/* <FormikControl control='checkbox' lable='Checkbox topics:' name='checkboxOpt' options={checkboxOptions} /> */}
+                                        <FastField
+                                            name='checkboxOpt'
+                                            component={Checkbox}
+                                            label='Checkbox topics:'
+                                            required
+                                            options={checkboxOptions}
+                                        />
 
-                                            {/* {formik.values.selectOpt === "opt2" ? "show something" : ""} */}
-                                        </Form>
-                                    )
-                                }
+                                        {/* <FormikControl control='date' lable='Pick a date:' name='birthDate' /> */}
+                                        <FastField
+                                            name='birthDate'
+                                            component={DatePicker}
+                                            label='Pick a date:'
+                                            required
+                                        />
+
+                                        <Button
+                                            variant="contained"
+                                            type='submit'
+                                            disabled={!formikProps.isValid}
+                                            leftIcon={<FontAwesomeIcon icon="fa-solid fa-circle-check" />}
+                                        >
+                                            Submit
+                                        </Button>
+
+                                        {/* {formik.values.selectOpt === "opt2" ? "show something" : ""} */}
+                                    </Form>
+                                )
+                            }
                             }
                         </Formik>
                         {result &&
