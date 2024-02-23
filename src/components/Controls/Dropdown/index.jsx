@@ -1,5 +1,6 @@
 import React from 'react';
 import { FastField, ErrorMessage } from 'formik';
+import Select from 'react-select'
 import TextError from '../FormikControl/TextError';
 
 function Dropdown(props) {
@@ -7,16 +8,24 @@ function Dropdown(props) {
 
     return (
         <div className='form-control'>
-            <label htmlFor={name}>{lable}</label>
-            <FastField as='select' id={name} name={name} {...rest} >
+            <label className='form-label' htmlFor={name}>{lable}</label>
+            <FastField id={name} name={name} {...rest} >
                 {
-                    options.map((item, index) => {
+                    ({ form, field }) => {
+                        const { setFieldValue } = form;
+                        const { value } = field;
                         return (
-                            <option key={index} value={item.value}>
-                                {item.text}
-                            </option>
+                            <Select
+                                className='select-control'
+                                classNamePrefix="react-select"
+                                {...field}
+                                {...rest}
+                                options={options}
+                                value={value.value}
+                                onChange={val => setFieldValue(name, val.value)}
+                            />
                         )
-                    })
+                    }
                 }
             </FastField>
             <ErrorMessage name={name} component={TextError} />

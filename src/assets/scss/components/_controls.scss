@@ -1,0 +1,196 @@
+@use "../abstracts";
+
+input[type="text"],
+input[type="email"],
+textarea {
+    display: block;
+    width: 100%;
+    min-height: 35px;
+    padding: 7px 10px;
+    font-size: 1.4rem;
+    color: #555;
+    outline: none;
+    background-color: var(--form-control-color);
+    border: 1px solid transparent;
+    border-left: 2px solid var(--primary-color);
+    border-radius: 0 4px 4px 0;
+    box-shadow: rgba(0, 0, 0, 0.08) 0px 0px 4px;
+
+    @include abstracts.screen(md) {
+        font-size: 1.6rem;
+        padding: 6px 10px;
+    }
+}
+
+textarea {
+    resize: none;
+}
+
+.form-control {
+    margin-bottom: 15px;
+
+    &:focus-within:not(.form-control__radio, .form-control__checkbox) .form-label {
+        color: var(--primary-color);
+    }
+
+    .form-label {
+        display: inline-block;
+        padding-bottom: 6px;
+        font-weight: 600;
+        font-size: 1.4rem;
+        color: var(--form-label-color);
+    }
+    .form-input {
+        &:focus {
+            border-bottom-color: var(--primary-color);
+            border-bottom-right-radius: 0;
+        }
+    }
+
+    .form-error {
+        margin-top: 6px;
+        color: #fd4646;
+        font-size: 1.2rem;
+        font-weight: 500;
+    }
+
+    .select-control {
+        .react-select__control {
+            min-height: 35px !important;
+            background-color: var(--form-control-color) !important;
+            border: none !important;
+            border-left: 2px solid var(--primary-color) !important;
+            border-radius: 0 4px 4px 0 !important;
+            box-shadow: rgba(0, 0, 0, 0.08) 0px 0px 4px !important;
+        }
+        .react-select__input-container {
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+        .react-select__value-container {
+            margin: 0 !important;
+            padding: 0 !important;
+            padding-left: 10px !important;
+            font-size: 1.4rem;
+        }
+        .react-select__menu {
+            margin: 0 !important;
+        }
+        .react-select__option {
+            font-size: 1.4rem;
+        }
+        .react-select__option--is-focused {
+            background: #ea7f2330;
+        }
+        .react-select__option--is-selected {
+            background: var(--primary-color) !important;
+        }
+    }
+
+    //Radio
+    .radio-control {
+        & + .radio-control {
+            margin-top: 5px;
+        }
+
+        label {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            line-height: 20px;
+            font-size: 1.4rem;
+        }
+
+        label::before,
+        label::after {
+            content: "";
+            display: inline-block;
+        }
+
+        label::before {
+            width: 14px;
+            height: 14px;
+            margin-right: 6px;
+            background: #fff;
+            border: 1px solid #ababab;
+            border-radius: 50%;
+            transition: "border-color";
+            transition-duration: 200ms;
+        }
+        label::after {
+            transition: "background";
+            transition-duration: 200ms;
+        }
+
+        [type="radio"] {
+            display: none;
+        }
+
+        [type="radio"]:checked ~ label::before {
+            border-color: var(--primary-color);
+        }
+
+        [type="radio"]:checked ~ label::after {
+            position: absolute;
+            top: 6px;
+            left: 3px;
+            width: 8px;
+            height: 8px;
+            background: var(--primary-color);
+            border-radius: 50%;
+        }
+    }
+
+    //Checkbox
+    .checkbox-control {
+        & + .checkbox-control {
+            margin-top: 5px;
+        }
+
+        label {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            line-height: 20px;
+            font-size: 1.4rem;
+            cursor: pointer;
+        }
+
+        label::before,
+        label::after {
+            content: "";
+            display: inline-block;
+        }
+
+        label::before {
+            width: 14px;
+            height: 14px;
+            margin-right: 6px;
+            background: #fff;
+            border: 1px solid #ababab;
+            border-radius: 3px;
+            transition: "border-color", "background";
+            transition-duration: 200ms;
+        }
+
+        [type="checkbox"] {
+            display: none;
+        }
+
+        [type="checkbox"]:checked ~ label::before {
+            border-color: var(--primary-color);
+            background: var(--primary-color);
+        }
+
+        [type="checkbox"]:checked ~ label::after {
+            position: absolute;
+            top: 6px;
+            left: 3px;
+            width: 8px;
+            height: 5px;
+            border-left: 2px solid #fff;
+            border-bottom: 2px solid #fff;
+            rotate: -45deg;
+        }
+    }
+}

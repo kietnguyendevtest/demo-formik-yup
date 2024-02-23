@@ -8,8 +8,8 @@ function TextBox(props) {
 
     return (
         <div className='form-control'>
-            <label htmlFor={name}>{lable}</label>
-            <FastField id={name} name={name} {...rest} />
+            <label className='form-label' htmlFor={name}>{lable}</label>
+            <FastField className='form-input' id={name} name={name} {...rest} />
             <ErrorMessage name={name} component={TextError} />
         </div>
     );

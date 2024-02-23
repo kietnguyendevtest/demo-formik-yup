@@ -6,8 +6,8 @@ function Checkbox(props) {
     const { lable, name, options, ...rest } = props;
 
     return (
-        <div className='form-control'>
-            <label htmlFor={name}>{lable}</label>
+        <div className='form-control form-control__checkbox'>
+            <label className='form-label' htmlFor={name}>{lable}</label>
             <FastField name={name} {...rest} >
                 {
                     ({ field }) => {

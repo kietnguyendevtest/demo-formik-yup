@@ -2,7 +2,7 @@ import React from 'react';
 
 function TextError(props) {
     return (
-        <div className='error'>
+        <div className='form-error'>
             {props.children}
         </div>
     );

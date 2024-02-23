@@ -9,7 +9,7 @@ function DatePicker(props) {
 
     return (
         <div className='form-control'>
-            <label htmlFor={name}>{lable}</label>
+            <label className='form-label' htmlFor={name}>{lable}</label>
             <FastField name={name} {...rest} >
                 {
                     ({ form, field }) => {
@@ -17,13 +17,15 @@ function DatePicker(props) {
                         const { value } = field;
 
                         return (
-                            <DateView
-                                id={name}
-                                {...field}
-                                {...rest}
-                                selected={value}
-                                onChange={val => setFieldValue(name, val)}
-                            />
+                            <div className="date-control">
+                                <DateView
+                                    id={name}
+                                    {...field}
+                                    {...rest}
+                                    selected={value}
+                                    onChange={val => setFieldValue(name, val)}
+                                />
+                            </div>
                         )
                     }
                 }
