@@ -1,6 +1,5 @@
 import React from 'react';
-import { FastField, ErrorMessage } from 'formik';
-import TextError from '../FormikControl/TextError';
+import TextError from '../TextError';
 
 function Textarea(props) {
     const {
@@ -9,9 +8,7 @@ function Textarea(props) {
         ...rest
     } = props;
 
-    const {
-        name, //value, onChange, onBlur
-    } = field;
+    const { name } = field;
 
     const { errors, touched } = form;
 
@@ -21,7 +18,7 @@ function Textarea(props) {
             <textarea
                 className='form-input'
                 id={name}
-                {...field} // <=> value, onChange, onBlur
+                {...field}
                 placeholder={placeholder}
                 disabled={disabled}
                 {...rest}

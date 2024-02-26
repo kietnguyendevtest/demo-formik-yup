@@ -1,6 +1,5 @@
 import React from 'react';
-import { FastField, ErrorMessage } from 'formik';
-import TextError from '../FormikControl/TextError';
+import TextError from '../TextError';
 
 function RadioButtons(props) {
     const {
@@ -9,9 +8,7 @@ function RadioButtons(props) {
         ...rest
     } = props;
 
-    const {
-        name,
-    } = field;
+    const { name } = field;
 
     const { errors, touched } = form;
 
@@ -36,7 +33,7 @@ function RadioButtons(props) {
                     )
                 })
             }
-            {(errors[name]) && <TextError>{errors[name]}</TextError>}
+            {(errors[name] && touched[name]) && <TextError>{errors[name]}</TextError>}
         </div>
     );
 }

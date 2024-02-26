@@ -1,6 +1,5 @@
 import React from 'react';
-import { FastField, ErrorMessage } from 'formik';
-import TextError from '../FormikControl/TextError';
+import TextError from '../TextError';
 
 function Checkbox(props) {
     const {
@@ -10,11 +9,23 @@ function Checkbox(props) {
     } = props;
 
     const {
-        name, value
+        name, value: fieldValue
     } = field;
 
-    const { errors, touched } = form;
-    const showError = errors[name] && touched[name];
+    const { errors, touched, setFieldValue, setFieldTouched } = form;
+
+    const onChange = (selectedArray) => {
+        setFieldTouched(name);
+
+        const checkedValue = selectedArray.target.value;
+        const isChecked = fieldValue.includes(checkedValue);
+
+        if (isChecked) {
+            setFieldValue(name, fieldValue.filter((item) => item != checkedValue));
+        } else {
+            setFieldValue(name, [...fieldValue, checkedValue]);
+        }
+    };
 
     return (
         <div className='form-control form-control__checkbox'>
@@ -28,15 +39,16 @@ function Checkbox(props) {
                                 id={item.value}
                                 {...field}
                                 value={item.value}
-                                checked={value.includes(item.value)}
+                                checked={fieldValue.includes(item.value)}
                                 {...rest}
+                                onChange={onChange}
                             />
                             <label htmlFor={item.value}>{item.text}</label>
                         </div>
                     )
                 })
             }
-            {errors[name] && <TextError>{errors[name]}</TextError>}
+            {(errors[name] && touched[name]) && <TextError>{errors[name]}</TextError>}
         </div>
     );
 }

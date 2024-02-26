@@ -1,5 +1,5 @@
 import React from 'react';
-import TextError from '../FormikControl/TextError';
+import TextError from '../TextError';
 
 function TextBox(props) {
     const {

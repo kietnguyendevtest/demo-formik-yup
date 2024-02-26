@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Formik, Form, FastField } from 'formik';
 import * as Yup from 'yup';
-import FormikControl from '../Controls/FormikControl';
+
 import Button from '../Controls/Button';
 import TextBox from '../Controls/TextBox';
 import Dropdown from '../Controls/Dropdown';
@@ -21,6 +21,12 @@ function DemoForm() {
         { value: 'opt3', label: 'Option 3' },
         { value: 'opt4', label: 'Option 4' },
     ]
+    const dropDownMultiOptions = [
+        { value: 'opt-multi-1', label: 'Option one' },
+        { value: 'opt-multi-2', label: 'Option two' },
+        { value: 'opt-multi-3', label: 'Option three' },
+        { value: 'opt-multi-4', label: 'Option four' },
+    ]
     const radioOptions = [
         { value: 'rdoOpt1', text: 'Radio Option 1' },
         { value: 'rdoOpt2', text: 'Radio Option 2' },
@@ -37,6 +43,7 @@ function DemoForm() {
         email: '',
         desc: '',
         selectOpt: '',
+        selectOptMulti: [],
         radioOpt: '',
         checkboxOpt: [],
         birthDate: null,
@@ -44,9 +51,12 @@ function DemoForm() {
     const validationSchema = Yup.object().shape({
         email: Yup.string().email('Invalid email format').required('Email Required!'),
         desc: Yup.string().required('Description Required!'),
+
         selectOpt: Yup.string().required('Select a topic Required!'),
+        selectOptMulti: Yup.array().min(2, 'Select multi topics Required select the least 2 items!'),
+
         radioOpt: Yup.string().required('Radio topic Required!'),
-        checkboxOpt: Yup.array().min(2, 'Checkbox topics Required check 2 item!'),
+        checkboxOpt: Yup.array().min(2, 'Checkbox topics Required check the least 2 items!'),
         birthDate: Yup.date().nullable().required('Pick a date Required!'),
     });
     const onSubmit = (values, onSubmitProps) => {
@@ -68,7 +78,7 @@ function DemoForm() {
                             {formikProps => {
                                 const { values, errors, touched } = formikProps;
 
-                                console.log({ values, errors, touched });
+                                // /console.log("--------formikProps: ", { values, errors, touched });
 
                                 return (
                                     <Form autoComplete='off'>
@@ -87,7 +97,6 @@ function DemoForm() {
                                             required
                                         />
 
-                                        {/* <FormikControl control='select' lable='Select a topic:' name='selectOpt' options={dropDownOptions} /> */}
                                         <FastField
                                             name='selectOpt'
                                             component={Dropdown}
@@ -96,7 +105,15 @@ function DemoForm() {
                                             options={dropDownOptions}
                                         />
 
-                                        {/* <FormikControl control='radio' lable='Radio topic:' name='radioOpt' options={radioOptions} /> */}
+                                        <FastField
+                                            name='selectOptMulti'
+                                            component={Dropdown}
+                                            label='Select multi topics:'
+                                            required
+                                            multi
+                                            options={dropDownMultiOptions}
+                                        />
+
                                         <FastField
                                             name='radioOpt'
                                             component={RadioButtons}
@@ -105,7 +122,6 @@ function DemoForm() {
                                             options={radioOptions}
                                         />
 
-                                        {/* <FormikControl control='checkbox' lable='Checkbox topics:' name='checkboxOpt' options={checkboxOptions} /> */}
                                         <FastField
                                             name='checkboxOpt'
                                             component={Checkbox}
@@ -114,7 +130,6 @@ function DemoForm() {
                                             options={checkboxOptions}
                                         />
 
-                                        {/* <FormikControl control='date' lable='Pick a date:' name='birthDate' /> */}
                                         <FastField
                                             name='birthDate'
                                             component={DatePicker}
