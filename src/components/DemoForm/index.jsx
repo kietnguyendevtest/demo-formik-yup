@@ -40,6 +40,8 @@ function DemoForm() {
 
 
     const initialValues = {
+        username: '',
+        password: '',
         email: '',
         desc: '',
         selectOpt: '',
@@ -76,12 +78,26 @@ function DemoForm() {
                             onSubmit={onSubmit}
                         >
                             {formikProps => {
-                                const { values, errors, touched } = formikProps;
-
-                                // /console.log("--------formikProps: ", { values, errors, touched });
+                                //const { values, errors, touched } = formikProps;
+                                //console.log("--------formikProps: ", { values, errors, touched });
 
                                 return (
                                     <Form autoComplete='off'>
+                                        <FastField
+                                            name='username'
+                                            component={TextBox}
+                                            label="User name"
+                                            leftIcon={<FontAwesomeIcon icon="fa-solid fa-user" />}
+                                        />
+
+                                        <FastField
+                                            name='password'
+                                            component={TextBox}
+                                            label="Password"
+                                            leftIcon={<FontAwesomeIcon icon="fa-solid fa-lock" />}
+                                            eyeIcon
+                                        />
+
                                         <FastField
                                             name='email'
                                             component={TextBox}
@@ -100,7 +116,7 @@ function DemoForm() {
                                         <FastField
                                             name='selectOpt'
                                             component={Dropdown}
-                                            label='Select a topic:'
+                                            label='Select a topic'
                                             required
                                             options={dropDownOptions}
                                         />
@@ -108,7 +124,7 @@ function DemoForm() {
                                         <FastField
                                             name='selectOptMulti'
                                             component={Dropdown}
-                                            label='Select multi topics:'
+                                            label='Select multi topics'
                                             required
                                             multi
                                             options={dropDownMultiOptions}
@@ -117,7 +133,7 @@ function DemoForm() {
                                         <FastField
                                             name='radioOpt'
                                             component={RadioButtons}
-                                            label='Radio topic:'
+                                            label='Radio topic'
                                             required
                                             options={radioOptions}
                                         />
@@ -125,7 +141,7 @@ function DemoForm() {
                                         <FastField
                                             name='checkboxOpt'
                                             component={Checkbox}
-                                            label='Checkbox topics:'
+                                            label='Checkbox topics'
                                             required
                                             options={checkboxOptions}
                                         />
@@ -133,7 +149,7 @@ function DemoForm() {
                                         <FastField
                                             name='birthDate'
                                             component={DatePicker}
-                                            label='Pick a date:'
+                                            label='Pick a date'
                                             required
                                         />
 

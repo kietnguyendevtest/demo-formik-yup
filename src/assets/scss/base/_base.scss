@@ -72,3 +72,8 @@ input:-webkit-autofill:hover {
 .icon {
     filter: var(--icon-color);
 }
+
+::selection {
+    background-color: var(--primary-color);
+    color: #1a162e;
+}

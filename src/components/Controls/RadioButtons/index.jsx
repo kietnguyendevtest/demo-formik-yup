@@ -33,7 +33,7 @@ function RadioButtons(props) {
                     )
                 })
             }
-            {(errors[name] && touched[name]) && <TextError>{errors[name]}</TextError>}
+            <TextError>{(errors[name] && touched[name]) && errors[name]}</TextError>
         </div>
     );
 }

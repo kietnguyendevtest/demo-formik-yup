@@ -30,7 +30,7 @@ function DatePicker(props) {
                     onChange={val => setFieldValue(name, val)}
                 />
             </div>
-            {(errors[name] && touched[name]) && <TextError>{errors[name]}</TextError>}
+            <TextError>{(errors[name] && touched[name]) && errors[name]}</TextError>
         </div>
     );
 }

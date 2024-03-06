@@ -15,15 +15,17 @@ function Textarea(props) {
     return (
         <div className='form-control'>
             {label && <label className={'form-label' + (required ? " required" : "")} htmlFor={name}>{label}</label>}
-            <textarea
-                className='form-input'
-                id={name}
-                {...field}
-                placeholder={placeholder}
-                disabled={disabled}
-                {...rest}
-            />
-            {(errors[name] && touched[name]) && <TextError>{errors[name]}</TextError>}
+            <div className="textarea-control">
+                <textarea
+                    className='form-input'
+                    id={name}
+                    {...field}
+                    placeholder={placeholder}
+                    disabled={disabled}
+                    {...rest}
+                />
+            </div>
+            <TextError>{(errors[name] && touched[name]) && errors[name]}</TextError>
         </div>
     );
 }
